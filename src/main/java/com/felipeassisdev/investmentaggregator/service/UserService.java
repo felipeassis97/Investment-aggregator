@@ -42,10 +42,16 @@ public class UserService {
     }
 
     public void deleteById(String id) {
-        userRepository.deleteById(UUID.fromString(id));
+        var userId = UUID.fromString(id);
+
+        var userExists = userRepository.existsById(userId);
+
+        if (userExists) {
+            userRepository.deleteById(userId);
+        }
     }
 
-    public Optional<User> update(String userId, UpdateUserDto updateUserDto) {
+    public Optional<User> updateById(String userId, UpdateUserDto updateUserDto) {
         var userById = userRepository.findById(UUID.fromString(userId));
         if (userById.isPresent()) {
             var currentUser = userById.get();

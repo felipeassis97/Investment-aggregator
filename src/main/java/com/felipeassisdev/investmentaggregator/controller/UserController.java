@@ -50,7 +50,7 @@ public class UserController {
 
     @PutMapping("/{userId}")
     public ResponseEntity<User> updateUser(@PathVariable("userId") String userId, @RequestBody UpdateUserDto body) {
-        var updatedUser = userService.update(userId, body);
+        var updatedUser = userService.updateById(userId, body);
         if (updatedUser.isPresent()) {
             return ResponseEntity.ok(updatedUser.get());
         }
