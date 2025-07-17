@@ -19,13 +19,13 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody CreateUserDto body) {
-        var userId = userService.createUser(body);
+        var userId = userService.create(body);
         return ResponseEntity.created(URI.create("/v1/users/" + userId.toString())).build();
     }
 
     @GetMapping("/{userId}")
     public ResponseEntity<User> getUserById(@PathVariable("userId") String userId) {
-        var user = userService.findById(userId);
+        var user = userService.getById(userId);
 
         if (user.isPresent()) {
             return ResponseEntity.ok(user.get());
@@ -50,7 +50,7 @@ public class UserController {
 
     @PutMapping("/{userId}")
     public ResponseEntity<User> updateUser(@PathVariable("userId") String userId, @RequestBody UpdateUserDto body) {
-        var updatedUser = userService.updateUser(userId, body);
+        var updatedUser = userService.update(userId, body);
         if (updatedUser.isPresent()) {
             return ResponseEntity.ok(updatedUser.get());
         }

@@ -20,7 +20,7 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public UUID createUser(CreateUserDto createUserDto) {
+    public UUID create(CreateUserDto createUserDto) {
         var userEntity = new User(
                 null,
                 createUserDto.username(),
@@ -33,7 +33,7 @@ public class UserService {
         return usedSaved.getId();
     }
 
-    public Optional<User> findById(String id) {
+    public Optional<User> getById(String id) {
         return userRepository.findById(UUID.fromString(id));
     }
 
@@ -45,7 +45,7 @@ public class UserService {
         userRepository.deleteById(UUID.fromString(id));
     }
 
-    public Optional<User> updateUser(String userId, UpdateUserDto updateUserDto) {
+    public Optional<User> update(String userId, UpdateUserDto updateUserDto) {
         var userById = userRepository.findById(UUID.fromString(userId));
         if (userById.isPresent()) {
             var currentUser = userById.get();
